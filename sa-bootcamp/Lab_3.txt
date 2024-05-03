@@ -1,0 +1,15 @@
+# Grafana
+
+https://grafana.com/
+
+##  Setup 
+
+https://grafana.com/grafana/download?pg=get&plcmt=selfmanaged-box1-cta1
+
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise-10.4.1.linux-amd64.tar.gz
+
+tar -zxvf grafana-enterprise-10.4.1.linux-amd64.tar.gz
+
+mv grafana-v10.4.1/ grafana
+cd grafana/
+bin/grafana-server

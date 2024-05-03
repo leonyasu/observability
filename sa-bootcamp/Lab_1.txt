@@ -1,0 +1,54 @@
+##########################################################################################
+## Lab 1: Collecting metrics and logs with python and boto3 + trace with xRay
+##########################################################################################
+
+1/ Create a python3 file
+    
+    vi Lab_1A.py 
+
+2/ Install boto3
+
+    pip3 install boto3
+
+3/ Run the code 
+
+    python3 Lab_1A.py 
+    python3 Lab_1A.py | grep Dimension
+
+4/ Verify metrics
+    
+    Go to AWS console
+    
+5/ Run the code
+    
+    python3 Lab_1B.py 
+    python3 Lab_1B.py | grep Dimension
+
+6/ Verify logs
+
+    Go to AWS Console
+    
+7/ Install x-ray daemon
+
+    https://docs.aws.amazon.com/pt_br/xray/latest/devguide/xray-daemon.html
+
+    pip install aws-xray-sdk
+
+    export AWS_XRAY_DAEMON_ADDRESS=127.0.0.1:2000
+
+8/ Run the code
+
+    python3 Lab_1C.py 
+    python3 Lab_1C.py | grep Dimension
+
+9/ Verify console
+
+    X-Ray traces > traces
+
+https://docs.aws.amazon.com/pt_br/xray/latest/devguide/xray-sdk-python.html
+
+https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-python-middleware.html
+
+https://docs.aws.amazon.com/pt_br/xray/latest/devguide/xray-sdk-python-configuration.html
+
+https://github.com/aws/aws-xray-sdk-python

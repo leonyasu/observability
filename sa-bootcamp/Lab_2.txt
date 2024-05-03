@@ -1,0 +1,67 @@
+# Install and run prometheus server
+
+mkdir prometheus
+cd prometheus/
+wget https://github.com/prometheus/prometheus/releases/download/v2.51.1/prometheus-2.51.1.linux-amd64.tar.gz
+tar -xzf prometheus-2.51.1.linux-amd64.tar.gz 
+cd prometheus-2.51.1.linux-amd64/
+./prometheus 
+
+# Configure Server
+
+vi prometheus.yml 
+./prometheus --web.listen-address=localhost:8081
+
+# Install Node_Exporter
+
+wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
+tar -xzf node_exporter-1.7.0.linux-amd64.tar.gz 
+cd node_exporter-1.7.0.linux-amd64/
+nohup ./node_exporter &
+tail -f nohup.out 
+
+# Configure Scrapper
+cd prometheus-2.51.1.linux-amd64/
+vi prometheus.yml 
+
+## Add the following lines
+
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['localhost:9100']
+
+remote_write:
+  -
+    url: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-xxxxxxx-a3f5679775f6/api/v1/remote_write
+    queue_config:
+        max_samples_per_send: 1000
+        max_shards: 200
+        capacity: 2500
+    sigv4:
+          region: us-east-1
+          
+          
+./prometheus --web.listen-address=localhost:8081
+
+# Metrics
+
+https://prometheus.io/docs/prometheus/latest/getting_started/
+
+## Prometheus metrics
+    prometheus_target_interval_length_seconds
+    prometheus_target_interval_length_seconds{quantile="0.99"}
+    count(prometheus_target_interval_length_seconds)
+    rate(prometheus_tsdb_head_chunks_created_total[1m])
+
+https://prometheus.io/docs/prometheus/latest/getting_started/
+
+## Node_Exporter metrics
+
+    avg by (job, instance, mode) (rate(node_cpu_seconds_total[5m]))
+    avg by (job, instance, mode) (rate(node_cpu_seconds_total{instance="localhost:9100", job="node_exporter", mode="idle"}[5m]))
+    
+    rate(node_cpu_seconds_total{mode="system"}[1m])
+    node_filesystem_avail_bytes
+    rate(node_network_receive_bytes_total[1m])
+    rate(node_network_receive_bytes_total{device="ens5", instance="localhost:9100", job="node_exporter"}[1m])
+    

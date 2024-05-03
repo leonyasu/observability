@@ -1,0 +1,16 @@
+# ADOT
+
+    https://aws-otel.github.io/docs/introduction
+    
+    git clone https://github.com/aws-observability/aws-otel-community.git
+     
+    /aws-sdk-call
+    /outgoing-sampleapp
+
+
+# EKS Addon
+
+    https://aws-otel.github.io/docs/getting-started/adot-eks-add-on
+    
+    
+    
